@@ -69,3 +69,5 @@ workflows:
           requires:
            - build
      - zipping 
+          requires:
+           - package
