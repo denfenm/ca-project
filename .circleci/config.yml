@@ -32,8 +32,6 @@ jobs:
     docker:
      - image: denfenm/simple1.4:latest
     steps:
-     - attach_workspace:
-        at: .
      - run:
         command: | 
            apt-get update -y
