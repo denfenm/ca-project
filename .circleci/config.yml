@@ -1,11 +1,65 @@
 version: 2.0
-jobs:
+jobs: 
   build:
     docker:
-      - image: alpine:3.7
+     - image: circleci/openjdk:8-jdk
     steps:
-      - run:
-          name: The First Step
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+     - checkout
+     - run:
+          name: Build project
+          command: gradle jar
+     - store_artifacts:
+          path: build/libs
+          destination: jar
+     - run:
+          name: Run gradle test
+          command: gradle test
+     - store_test_results:
+          path: build/test-results  
+     - persist_to_workspace:
+          root: . #working directory
+          paths: 
+           - . #if you want all of test to be persisted in the workspace. Note: Do not use both path examples, since `1` is also in `.` path
+  package:
+    docker:
+     - image: circleci/openjdk:8-jdk
+    steps:
+     - attach_workspace:
+          at: .  
+     - run:
+          name: Build project
+          command: gradle jar
+     - store_artifacts:
+          path: build/libs
+          destination: jar
+     - persist_to_workspace:
+          root: . #the folder to start the workspace from.
+          paths: 
+           - . #if you want all of test to be persisted in the workspace. Note: Do not use both path examples, since `1` is also in `.` path
+version: 2
+jobs:
+  dockerize:
+    machine: true #run jar commands
+    #- run:
+    # name:Dockerizing setup
+    # commands:
+    #     docker
+    steps:
+     - checkout
+     # Login to docker
+     - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+     # build the application image
+     - run: docker build -t $DOCKER_USER/myapp:$CIRCLE_SHA1 .
+     # deploy the image
+     - run: docker push $DOCKER_USER/myapp:$CIRCLE_SHA1
+workflows:
+  version: 2
+  myworkflows:
+    jobs: 
+     - build
+     - package:
+          requires:
+           - build
+     - dockerize:
+          requires:
+           - build
