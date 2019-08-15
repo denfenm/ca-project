@@ -2,24 +2,21 @@ version: 2.0
 jobs: 
   build:
     docker:
-     - image: circleci/openjdk:8-jdk
+     - image: circleci/python:3.6
     steps:
      - checkout
      - run:
-          name: Build project
-          command: gradle jar
+          command: |
+           pip install -r requirements.txt   
      - store_artifacts:
           path: build/libs
-          destination: jar
-     - run:
-          name: Run gradle test
-          command: gradle test
+          destination: python_app
      - store_test_results:
           path: build/test-results  
-     - persist_to_workspace:
-          root: . #working directory
-          paths: 
-           - . #if you want all of test to be persisted in the workspace. Note: Do not use both path examples, since `1` is also in `.` path
+     - run:
+          command: |
+            tests.py
+          
   package:
     docker:
      - image: circleci/openjdk:8-jdk
@@ -27,19 +24,20 @@ jobs:
      - attach_workspace:
           at: .  
      - run:
-          name: Build project
-          command: gradle jar
+          command: |
+          pip install -r requirements.txt
      - store_artifacts:
           path: build/libs
-          destination: jar
-     - persist_to_workspace:
-          root: . #the folder to start the workspace from.
-          paths: 
-           - . #if you want all of test to be persisted in the workspace. Note: Do not use both path examples, since `1` is also in `.` path
+          destination: python_app
+     - store_test_results:
+          path: build/test-results
+     - run:
+         command: |
+            tests.py 
 version: 2
 jobs:
   dockerize:
-    machine: true #run jar commands
+    machine: true 
     #- run:
     # name:Dockerizing setup
     # commands:
@@ -52,14 +50,3 @@ jobs:
      - run: docker build -t $DOCKER_USER/myapp:$CIRCLE_SHA1 .
      # deploy the image
      - run: docker push $DOCKER_USER/myapp:$CIRCLE_SHA1
-workflows:
-  version: 2
-  myworkflows:
-    jobs: 
-     - build
-     - package:
-          requires:
-           - build
-     - dockerize:
-          requires:
-           - build
