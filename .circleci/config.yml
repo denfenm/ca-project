@@ -15,7 +15,7 @@ jobs:
           path: build/test-results  
      - run:
           command: |
-            tests.py
+            python tests.py
           
   package:
     docker:
@@ -33,9 +33,8 @@ jobs:
           path: build/test-results
      - run:
           command: |
-            tests.py 
-version: 2
-jobs:
+           python tests.py
+
   dockerize:
     machine: true 
     #- run:
