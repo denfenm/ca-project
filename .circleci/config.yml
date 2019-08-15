@@ -8,10 +8,10 @@ jobs:
      - run:
           command: |
            python tests.py
-     #- persist_to_workspace:
-     #     root: . #the folder to start the workspace from.
-     #     paths: 
-     #     - .        
+     - persist_to_workspace:
+          root: . #the folder to start the workspace from.
+          paths: 
+           - .        
   package:
     docker:
      - image: denfenm/simple1.4:latest
@@ -30,20 +30,18 @@ jobs:
             - .
   zipping:
     docker:
-     - image: circleci/python:3.6.1
+     - image: denfenm/simple1.4:latest
     steps:
      - run:
-        name: zipzopzep
         command: | 
-          # apt-get update -y
-          # apt-get install zip -y
-          # cd circleci/ca-project
-          # mkdir artifact
-           sudo apt-get install zip gzip tar
-           zip -r something.zip . -i
+           apt-get update -y
+           apt-get install zip -y
+           cd /ca-project
+           mkdir artifact
+           zip -r something.zip .
      - store_artifacts:
-          path: /circleci/ca-project/artifact/something.zip
-          #destination: prefix
+          path: /circleci/ca-project/artifact/
+          destination: prefix
                   
 #update zip 
  
@@ -70,8 +68,7 @@ workflows:
      - package:
           requires:
            - build
-     - zipping:
-          
+     - zipping 
      #- dockerize:
       #    requires:
        #    - build
