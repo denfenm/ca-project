@@ -27,7 +27,7 @@ jobs:
      - persist_to_workspace:
           root: . #the folder to start the workspace from.
           paths: 
-           - .
+            - .
   zipping:
     docker:
      - image: denfenm/simple1.4:latest
@@ -36,11 +36,11 @@ jobs:
         at: .
      - run:
         command: | 
-         apt-get update -y
-         apt-get install zip -y
-         cd ./ca-project
-         mkdir artifact
-         zip ./artifact/something.zip .
+           apt-get update -y
+           apt-get install zip -y
+           cd ./ca-project
+           mkdir artifact
+           zip ./artifact/something.zip .
      - store_artifacts:
           path: /ca-project/artifact/
           destination: prefix
