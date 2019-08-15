@@ -36,11 +36,11 @@ jobs:
         command: | 
            apt-get update -y
            apt-get install zip -y
-           cd .ca-project
+           cd ca-project
            mkdir artifact
            zip -r something.zip .
      - store_artifacts:
-          path: .ca-project/artifact/
+          path: circleci/ca-project/artifact/something.zip
           destination: prefix
                   
 #update zip 
