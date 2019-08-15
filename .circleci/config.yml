@@ -42,7 +42,7 @@ jobs:
            mkdir artifact
            zip -r something.zip .
      - store_artifacts:
-          path: ./ca-project/artifact/
+          path: /ca-project/artifact
                   
 #update zip 
  
