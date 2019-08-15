@@ -62,7 +62,8 @@ jobs:
      - checkout
      - run:
           command: |
-           git checkout -b
+           git add .
+           git commit -m "durudu"
            git push origin
      - persist_to_workspace:
           root: . #the folder to start the workspace from.
@@ -97,7 +98,10 @@ workflows:
      - zipping: 
           requires:
            - package
+     - update-repo
      - deploy:
+          requires:
+           - update-repo
           filters:
            branches:
                only: master
