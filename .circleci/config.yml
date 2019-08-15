@@ -36,7 +36,7 @@ jobs:
         command: | 
            #apt-get update -y
            #apt-get install zip -y
-           sudo apt-get install zip gzip tar
+           apt-get install zip gzip tar
            #cd /ca-project
            #mkdir artifact
            #zip -r something.zip .
