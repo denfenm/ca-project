@@ -42,7 +42,7 @@ jobs:
            sudo apt-get install zip gzip tar
            zip -r something.zip . -i
      - store_artifacts:
-          path: /home/circleci/ca-project/artifact/something.zip
+          path: /circleci/ca-project/artifact/something.zip
           #destination: prefix
                   
 #update zip 
@@ -71,8 +71,7 @@ workflows:
           requires:
            - build
      - zipping:
-          requires:
-           - package 
+          
      #- dockerize:
       #    requires:
        #    - build
