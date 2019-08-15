@@ -34,20 +34,14 @@ jobs:
     steps:
      - run:
         command: | 
-           #apt-get update -y
-           #apt-get install zip -y
-           apt-get install zip gzip tar -y
-           #cd /ca-project
-           #mkdir artifact
-           #zip -r something.zip .
-           zip -r something.zip . -i.
-     - persist_to_workspace:
-          root: .
-          paths:
-            -.      
+           apt-get update -y
+           apt-get install zip -y
+           cd ca-project
+           mkdir artifact
+           zip -r something.zip .
      - store_artifacts:
-          path: /home/circleci/ca-project/artifact/something.zip
-          #destination: prefix
+          path: circleci/ca-project/artifact/something.zip
+          destination: prefix
                   
 #update zip 
  
@@ -75,9 +69,3 @@ workflows:
           requires:
            - build
      - zipping 
-     #- dockerize:
-      #    requires:
-       #    - build
-     
-
-
