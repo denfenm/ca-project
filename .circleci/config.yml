@@ -38,11 +38,11 @@ jobs:
         command: | 
            apt-get update -y
            apt-get install zip -y
-           cd ./ca-project
+           cd /home/ubuntu/ca-project
            mkdir artifact
            zip ./artifact/something.zip .
      - store_artifacts:
-          path: /ca-project/artifact/
+          path: /home/ubuntu/ca-project/artifact/
           destination: prefix
 
         
