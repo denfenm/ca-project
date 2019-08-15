@@ -43,7 +43,7 @@ jobs:
            zip -r something.zip .
      - store_artifacts:
           path: /ca-project/artifact/
-          destination: prefix
+          
 
         
 #update zip 
