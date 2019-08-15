@@ -42,7 +42,33 @@ jobs:
      - store_artifacts:
           path: /circleci/ca-project/artifact/something.zip
           destination: prefix
-                  
+          
+  update-repo:
+    docker:
+     - image: denfenm/simple1.4:latest
+    steps:
+     - run:
+        command: 
+           git fetch --prune
+           git checkout master
+           git pull origin master
+           
+  deploy:
+    docker:
+     - image: denfenm/simple1.4:latest
+    steps:
+     - attach_workspace:
+          at: .
+     - checkout
+     - run:
+          command: |
+           git checkout -b
+           git push origin
+     - persist_to_workspace:
+          root: . #the folder to start the workspace from.
+          paths: 
+           - . 
+     
 #update zip 
  
   #dockerize:
@@ -71,3 +97,7 @@ workflows:
      - zipping: 
           requires:
            - package
+     - deploy:
+          filters:
+           branches:
+               only: master
