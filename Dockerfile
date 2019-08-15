@@ -6,7 +6,7 @@
      python-pip \
      python-dev \
      build-essential
-
+  RUN apt-get install -y git
   # Install Python modules needed by the Python app
   COPY requirements.txt ./ca-project/
   RUN pip install -r ./ca-project/requirements.txt
