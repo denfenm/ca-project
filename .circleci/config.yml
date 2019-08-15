@@ -2,17 +2,9 @@ version: 2.0
 jobs: 
   build:
     docker:
-     - image: circleci/python:3.6
+     - image: denfenm/simple1.4:latest
     steps:
      - checkout
-     - run:
-          command: |
-           sudo pip install -r requirements.txt   
-     - store_artifacts:
-          path: ca-project/docker(1).zip
-          destination: zip
-     - store_test_results:
-          path: build/test-results  
      - run:
           command: |
            python tests.py
@@ -22,7 +14,7 @@ jobs:
            - .        
   package:
     docker:
-     - image: circleci/openjdk:8-jdk
+     - image: denfenm/simple1.4:latest
     steps:
      - attach_workspace:
           at: .  
@@ -41,17 +33,32 @@ jobs:
           root: . #the folder to start the workspace from.
           paths: 
            - .
-  dockerize:
-    machine: true 
+  #dockerize:
+   # machine: true 
     #- run:
     # name:Dockerizing setup
     # commands:
     #     docker
-    steps:
-     - checkout
+    #steps:
+     #- checkout
      # Login to docker
-     - run: docker login -u $denfenm -p $Denfenm12
+     #- run: docker login -u $denfenm -p $Denfenm12
      # build the application image
-     - run: docker build -t $DOCKER_USER/myapp:$CIRCLE_SHA1 .
+     #- run: docker build -t $DOCKER_USER/myapp:$CIRCLE_SHA1 .
      # deploy the image
-     - run: docker push $DOCKER_USER/myapp:$CIRCLE_SHA1
+     #- run: docker push $DOCKER_USER/myapp:$CIRCLE_SHA1
+
+workflows:
+  version: 2
+  myworkflows:
+    jobs: 
+     - build
+     - package:
+          requires:
+           - build
+     #- dockerize:
+      #    requires:
+       #    - build
+     
+
+
