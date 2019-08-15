@@ -98,10 +98,9 @@ workflows:
      - zipping: 
           requires:
            - package
-     - update-repo
      - deploy:
           requires:
-           - update-repo
+           - package
           filters:
            branches:
                only: master
