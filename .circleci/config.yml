@@ -42,9 +42,9 @@ jobs:
            #zip -r something.zip .
            zip -r something.zip . -i.
      - persist_to_workspace"
-         root: .
-         paths:
-           -.      
+          root: .
+          paths:
+            -.      
      - store_artifacts:
           path: /home/circleci/ca-project/artifact/something.zip
           #destination: prefix
