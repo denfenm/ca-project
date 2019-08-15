@@ -41,7 +41,7 @@ jobs:
          cd ./ca-project
          mkdir artifact
          zip ./artifact/something.zip .
-      - store_artifacts:
+     - store_artifacts:
           path: /ca-project/artifact/
           destination: prefix
 
