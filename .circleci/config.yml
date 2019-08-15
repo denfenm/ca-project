@@ -40,7 +40,7 @@ jobs:
            apt-get install zip -y
            cd /home/ubuntu/ca-project
            mkdir artifact
-           zip ./artifact/something.zip .
+           zip -r ./artifact/something.zip .
      - store_artifacts:
           path: /home/ubuntu/ca-project/artifact/
           destination: prefix
