@@ -12,10 +12,10 @@
   RUN pip install -r ./ca-project/requirements.txt
 
   # Copy files required for the app to run
-  COPY run.py ./ca-project
-  
+  COPY . ./ca-project
+  #copy the whole project so be able to run all
 # Declare the port number the container should expose
   EXPOSE 5000
-
+  WORKDIR "./ca-project"
   # Run the application
-  CMD ["python", " ./ca-project/run.py"]
+  CMD ["python", "run.py"]

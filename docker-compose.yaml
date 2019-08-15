@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+
+ simple1.4:
+  image: simple:1.4
+  ports: 
+   - 5000:5000
+      
+
