@@ -48,11 +48,6 @@ jobs:
 #update zip 
  
   dockerize:
-    machine: true 
-    - run:
-     name:Dockerizing setup
-     commands:
-         docker
     steps:
      #- checkout
       #Login to docker
