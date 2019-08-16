@@ -48,6 +48,7 @@ jobs:
 #update zip 
  
   dockerize:
+
     steps:
      #- checkout
       #Login to docker
@@ -68,7 +69,7 @@ workflows:
      - zipping: 
           requires:
            - package
-     - dockerize
+     - dockerize:
           requires:
            - zipping
 
