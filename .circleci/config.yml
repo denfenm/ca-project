@@ -54,12 +54,12 @@ jobs:
      commands:
          docker
     steps:
-     - checkout
-      Login to docker
+     #- checkout
+      #Login to docker
      - run: docker login -u $denfenm -p $Denfenm12
-      build the application image
+      #build the application image
      - run: docker build -t $DOCKER_USER/myapp:$CIRCLE_SHA1 .
-      deploy the image
+      #deploy the image
      - run: docker push $DOCKER_USER/myapp:$CIRCLE_SHA1
 
 workflows:
