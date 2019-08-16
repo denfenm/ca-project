@@ -54,9 +54,9 @@ jobs:
       #Login to docker
      - run: docker login -u "denfenm" -p "Denfenm12"
       #build the application image
-     - run: docker build -t $DOCKER_USER/myapp:$CIRCLE_SHA1 .
+     - run: docker build -t "denfenm"/myapp:$CIRCLE_SHA1 .
       #deploy the image
-     - run: docker push $DOCKER_USER/myapp:$CIRCLE_SHA1
+     - run: docker push "denfenm"/myapp:$CIRCLE_SHA1
 
 workflows:
   version: 2
