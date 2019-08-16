@@ -50,7 +50,7 @@ jobs:
   dockerize:
     machine: true
     steps:
-     - checkout
+     #- checkout
       #Login to docker
      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       #build the application image
@@ -66,9 +66,7 @@ workflows:
      - package:
           requires:
            - build
-     - zipping: 
-          requires:
-           - package
+     - zipping
      - dockerize:
           requires:
            - zipping
