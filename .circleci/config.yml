@@ -48,7 +48,7 @@ jobs:
 #update zip 
  
   dockerize:
-
+    machine: true
     steps:
      #- checkout
       #Login to docker
